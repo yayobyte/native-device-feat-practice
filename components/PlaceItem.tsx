@@ -1,4 +1,4 @@
-import {Image, Pressable, View, Text} from "react-native"
+import {Image, Pressable, View, Text, StyleSheet} from "react-native"
 import { Place } from "../models/Place"
 
 type PlaceItemProps = {
@@ -17,3 +17,7 @@ export const PlaceItem = ({ place, onSelect }: PlaceItemProps) => {
         </Pressable>
     )
 }
+
+const styles = StyleSheet.create({
+
+})
