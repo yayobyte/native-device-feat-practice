@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+#IDE
+.idea/
+/modules.xml
+/sonarlint/issuestore/index.pb
+/native-device-feat-practice.iml
