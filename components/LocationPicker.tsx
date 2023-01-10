@@ -4,8 +4,10 @@ import { Colors } from "../constants/colors";
 import { getCurrentPositionAsync, PermissionStatus, useForegroundPermissions } from "expo-location";
 import { getMapPreview } from "../util/location";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export const LocationPicker = () => {
+	const navigation = useNavigation()
 	const [locationPermission, requestPermission] = useForegroundPermissions()
 	const [pickedLocation, setPicketLocation] = useState<{ lat: number, lng: number} | undefined>()
 	
@@ -34,7 +36,7 @@ export const LocationPicker = () => {
 	}
 	
 	const pickOnMapHandler = () => {
-	
+		navigation.navigate('Map')
 	}
 	
 	return (
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
 	mapPreview: {
 		width: '100%',
 		height: 200,
-		marginVertical: 8,
+		marginVertical: 16,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: Colors.primary100,
