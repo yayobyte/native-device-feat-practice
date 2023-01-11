@@ -36,7 +36,7 @@ export function init() {
 	return promise;
 }
 
-const insertPlace = (place: Place) => {
+export const insertPlace = (place: Place) => {
 	const promise = new Promise((resolve, reject) => {
 		database.transaction((transaction) => {
 			transaction.executeSql(
@@ -48,6 +48,28 @@ const insertPlace = (place: Place) => {
 					resolve(resultSet)
 				},
 				(_, error) => reject(error),
+			)
+		})
+	})
+	return promise
+}
+
+export const fetchPlaces = () => {
+	const promise = new Promise((resolve, reject) => {
+		database.transaction((tx) => {
+			tx.executeSql(
+				`SELECT * FROM ${PLACES_TABLE}`,
+				[],
+				(_, result) => {
+					const places = result.rows._array.map((place) => (
+						new Place(place.title, place.imageUri, place.address, { lat: place.lat, lng: place.lng })
+					))
+					console.log(places)
+					resolve(places)
+				},
+				(_, error) => {
+					reject(error)
+				}
 			)
 		})
 	})
