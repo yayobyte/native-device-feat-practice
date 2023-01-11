@@ -4,7 +4,11 @@ import { useState } from "react";
 import { Colors } from "../constants/colors";
 import { OutlinedButton } from "./ui/OutlinedButton";
 
-export const ImagePicker = () => {
+type ImagePickerProps = {
+	onTakeImage: (uri: string) => void
+}
+
+export const ImagePicker = ({ onTakeImage }: ImagePickerProps) => {
 	
 	const [cameraPermissionInfo, requestPermission] = useCameraPermissions()
 	const [pickedImage, setPickedImage] = useState('')
@@ -32,6 +36,7 @@ export const ImagePicker = () => {
 			quality: 0.5,
 		})
 		setPickedImage(image.uri || '')
+		onTakeImage(image.uri || '')
 	}
 	
 	return (
