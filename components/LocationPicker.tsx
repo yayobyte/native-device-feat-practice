@@ -5,8 +5,7 @@ import { getCurrentPositionAsync, PermissionStatus, useForegroundPermissions } f
 import { getAddress, getMapPreview } from "../util/location";
 import { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
-type Location = { lat: string, lng: string }
+import { Location } from "../models/Place";
 
 type LocationPickerProps = {
 	onPickLocation: ({ lat, lng }: Location, address: any) => void

@@ -1,4 +1,5 @@
 import { GOOGLE_API_KEY } from "../googleApiKey";
+import { Location } from "../models/Place";
 
 const ZOOM = 14
 const WEIGHT = 400
@@ -11,7 +12,7 @@ export const getMapPreview = (lat: string = '0', lng: string = '0') => {
 &key=${GOOGLE_API_KEY}`
 }
 
-export const getAddress = async ({ lat, lng }) => {
+export const getAddress = async ({ lat, lng }: Location) => {
 	const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
 	const response = await fetch(url)
 	if(!response.ok) {
