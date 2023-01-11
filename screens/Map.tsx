@@ -9,16 +9,22 @@ type MapProps = {
 	navigation: NavigationProp<{}>
 }
 
-const region = { latitude: 25.09, longitude: 55.17, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }
+const initialRegion = { latitude: 25.09, longitude: 55.17, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }
 
-export const Map = ({ navigation }: MapProps) => {
-	const [selectedLocation, setSelectedLocation] = useState<{ lat: number, lng: number} | undefined>()
+export const Map = ({ navigation, route }: MapProps) => {
+	const initialLocation = route.params && { lat: route.params.initialLat, lng: route.params.initialLng}
+	const [selectedLocation, setSelectedLocation] = useState<{ lat: number, lng: number} | undefined>(initialLocation)
 	
 	const selectLocationHandler = (event: MapPressEvent) => {
 		const lat = event.nativeEvent.coordinate.latitude
 		const lng = event.nativeEvent.coordinate.longitude
 		
 		setSelectedLocation({ lat, lng })
+	}
+	
+	const region = {
+		...initialRegion,
+		...initialLocation && { latitude: initialLocation.lat, longitude: initialLocation.lng }
 	}
 	
 	const savePickedLocation = useCallback(() => {
@@ -30,10 +36,13 @@ export const Map = ({ navigation }: MapProps) => {
 	}, [selectedLocation])
 	
 	useLayoutEffect(() => {
+		if (initialLocation) {
+			return
+		}
 		navigation.setOptions({
 			headerRight: ({ tintColor }) => <IconButton icon={'save'} color={tintColor} size={18} onPress={savePickedLocation}/>
 		})
-	}, [navigation, savePickedLocation])
+	}, [navigation, savePickedLocation, initialLocation])
 	
 	return (
 		<MapView

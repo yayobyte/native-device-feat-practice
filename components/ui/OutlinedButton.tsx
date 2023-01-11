@@ -7,10 +7,10 @@ type OutlinedButtonProps = {
 	onPress: () => void
 	icon: any
 	children: string,
-	size: number
+	size?: number
 }
 
-export const OutlinedButton = ({ onPress, icon, children, size}: OutlinedButtonProps) => {
+export const OutlinedButton = ({ onPress, icon, children, size = 24}: OutlinedButtonProps) => {
 	return (
 		<Pressable onPress={onPress} style={({ pressed }) => [styles.button, pressed && styles.pressed]}>
 			<Ionicons name={icon} color={Colors.primary500} style={styles.icon} size={size}/>

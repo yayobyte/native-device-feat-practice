@@ -62,9 +62,8 @@ export const fetchPlaces = () => {
 				[],
 				(_, result) => {
 					const places = result.rows._array.map((place) => (
-						new Place(place.title, place.imageUri, place.address, { lat: place.lat, lng: place.lng })
+						new Place(place.title, place.imageUri, place.address, { lat: place.lat, lng: place.lng }, place.id)
 					))
-					console.log(places)
 					resolve(places)
 				},
 				(_, error) => {
@@ -73,5 +72,24 @@ export const fetchPlaces = () => {
 			)
 		})
 	})
+	return promise
+}
+
+export const fetchPlaceDetails = (id: string) => {
+	const promise = new Promise((resolve, reject) => {
+		database.transaction((tx) => {
+			tx.executeSql(
+				`SELECT * FROM ${PLACES_TABLE} WHERE id = ?`,
+				[id],
+				(_, resultSet) => {
+					resolve(resultSet.rows._array[0])
+				},
+				(_, error) => {
+					reject(error)
+				}
+			)
+		})
+	})
+	
 	return promise
 }

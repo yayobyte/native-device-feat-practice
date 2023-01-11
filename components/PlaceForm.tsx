@@ -51,8 +51,9 @@ export const PlaceForm = ({ onCreatePlace }: PlaceFormProps) => {
 
 const style = StyleSheet.create({
     form: {
-        flex: 1,
-        padding: 24
+        flexGrow: 1,
+        padding: 24,
+        
     },
     label: {
         fontWeight: 'bold',
